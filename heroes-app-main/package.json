@@ -24,6 +24,7 @@
     "@capacitor/android": "^5.7.4",
     "@capacitor/angular": "^2.0.3",
     "@capacitor/core": "latest",
+    "@capacitor/geolocation": "^5.0.7",
     "@capacitor/toast": "^5.0.7",
     "@ionic/pwa-elements": "^3.2.2",
     "rxjs": "~7.5.0",
