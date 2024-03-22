@@ -4,6 +4,8 @@ import { switchMap } from 'rxjs';
 
 import { HeroesService } from '../../services/heroes.service';
 import { Hero } from '../../interfaces/hero.interface';
+import { Share } from '@capacitor/share';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-hero-page',
@@ -14,6 +16,7 @@ import { Hero } from '../../interfaces/hero.interface';
 export class HeroPageComponent implements OnInit {
 
   public hero?: Hero;
+  public isMobile : boolean = false
 
   constructor(
     private heroesService: HeroesService,
@@ -22,6 +25,9 @@ export class HeroPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    this.isMobile = Capacitor.isNativePlatform();
+
     this.activatedRoute.params
       .pipe(
         switchMap( ({ id }) => this.heroesService.getHeroById( id )),
@@ -37,6 +43,16 @@ export class HeroPageComponent implements OnInit {
 
   goBack():void {
     this.router.navigateByUrl('heroes/list')
+  }
+
+
+  //3. Share information from hero
+  async shareImage(){
+    await Share.share({
+      title: 'Informacion',
+      text: `Informacion del heroe: primerea aparicion: ${this.hero?.first_appearance}, nombre: ${this.hero?.superhero}`,
+    
+    });
   }
 
 }

@@ -34,10 +34,10 @@ export class LoginPageComponent {
   }
   
 
+  // 2. Added geolocation
    async checkPermissions(){
     if (Capacitor.isNativePlatform()) {
       const permission = await Geolocation.requestPermissions()
-      console.log(permission)
       if(permission){
         if( permission.coarseLocation == 'granted' && permission.location == 'granted'){
           this.checkLocation()

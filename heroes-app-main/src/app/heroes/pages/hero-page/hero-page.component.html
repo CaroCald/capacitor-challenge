@@ -45,6 +45,14 @@
         Regresar
       </button>
 
+      <span class="spacer"></span>
+
+      <button mat-button *ngIf="isMobile"
+      mat-raised (click)="shareImage()" >
+      <mat-icon>share</mat-icon>
+      Compartir 
+    </button>
+
     </mat-card-content>
 
 
