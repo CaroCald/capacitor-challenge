@@ -13,12 +13,18 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 
 import { Toast } from '@capacitor/toast';
 import { Capacitor } from '@capacitor/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { DomSanitizer } from '@angular/platform-browser';
+
+
+
 @Component({
   selector: 'app-new-page',
   templateUrl: './new-page.component.html',
   styles: [],
 })
 export class NewPageComponent implements OnInit {
+
   public heroForm = new FormGroup({
     id: new FormControl<string>(''),
     superhero: new FormControl<string>('', { nonNullable: true }),
@@ -34,12 +40,15 @@ export class NewPageComponent implements OnInit {
     { id: 'Marvel Comics', desc: 'Marvel - Comics' },
   ];
 
+  public isMobile : boolean = false
+
   constructor(
     private heroesService: HeroesService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private snackbar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sanitizer: DomSanitizer
   ) {}
 
   get currentHero(): Hero {
@@ -48,6 +57,9 @@ export class NewPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.isMobile = Capacitor.isNativePlatform();
+
     if (!this.router.url.includes('edit')) return;
 
     this.activatedRoute.params
@@ -130,4 +142,18 @@ export class NewPageComponent implements OnInit {
       this.showSnackbar(message);
     }
   }
+
+  //3. Upload image on mobile
+  async uploadImage() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+      source: CameraSource.Photos 
+  });
+
+      if (image) {
+        this.currentHero.upload_img = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image.base64String}`);
+      }
+    }
 }

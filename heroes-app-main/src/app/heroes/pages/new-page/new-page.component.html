@@ -77,10 +77,16 @@
             />
           </mat-form-field>
 
-
+          <button  class="col-12"
+          *ngIf="isMobile"
+          (click)="uploadImage()"
+          mat-flat-button
+          color="primary">
+          Subir imagen
+        </button>
         </form>
 
-        <div class="flex justify-content-between">
+        <div class="flex justify-content-between mt-3">
           <button
             *ngIf="currentHero.id"
             (click)="onDeleteHero()"
@@ -107,10 +113,17 @@
 
   <div class="col-12 sm:col-6">
 
-    <mat-card>
+    <mat-card *ngIf="currentHero.upload_img; else uploadImageShow">
       <img [src]="currentHero | heroImage" alt="imagen del héroe" mat-card-image>
     </mat-card>
 
+    <ng-template #uploadImageShow>
+      <mat-card *ngIf="currentHero.upload_img">
+        <img [src]="currentHero.upload_img" alt="imagen del héroe" mat-card-image>
+      </mat-card>
+    </ng-template>
+
+    
   </div>
 </div>
 
