@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
 import { Capacitor } from '@capacitor/core';
+import { Toast } from '@capacitor/toast';
 
 @Component({
   selector: 'app-login-page',
@@ -38,19 +39,28 @@ export class LoginPageComponent {
    async checkPermissions(){
     if (Capacitor.isNativePlatform()) {
       const permission = await Geolocation.requestPermissions()
+
       if(permission){
         if( permission.coarseLocation == 'granted' && permission.location == 'granted'){
           this.checkLocation()
         } else if (permission.coarseLocation == 'denied' && permission.location == 'denied'){
-          alert("User Deny Location Access Permission")
+          this.showToast("User Deny Location Access Permission")
+        }else{
+          this.showToast("User Deny Location Access Permission")
         }
       }else{
-        alert("User Deny Location Access Permission")
-        
+        this.showToast("User Deny Location Access Permission")
       }
     }else{
       this.checkLocation()
     }
    
+  }
+
+  async showToast(message: string){
+    await Toast.show({
+    text: message,
+    duration: 'long'
+  });
   }
 }

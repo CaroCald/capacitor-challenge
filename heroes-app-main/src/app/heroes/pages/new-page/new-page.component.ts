@@ -143,17 +143,30 @@ export class NewPageComponent implements OnInit {
     }
   }
 
-  //3. Upload image on mobile
+  //4. Upload image on mobile
   async uploadImage() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Base64,
-      source: CameraSource.Photos 
-  });
-
-      if (image) {
-        this.currentHero.upload_img = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image.base64String}`);
+    if (Capacitor.isNativePlatform()) {
+      const permission = await Camera.requestPermissions();
+  
+      if(permission){
+        if( permission.camera == 'granted' && permission.photos == 'granted'){
+          const image = await Camera.getPhoto({
+            quality: 90,
+            allowEditing: false,
+            resultType: CameraResultType.Base64,
+            source: CameraSource.Photos 
+        });
+      
+            if (image) {
+              this.currentHero.upload_img = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image.base64String}`);
+            }
+          }else{
+            this.showToast("User Deny Camera Access Permission")
+          }
+        } else {
+          this.showToast("User Deny Camera Access Permission")
+        }
       }
     }
+    
 }
