@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
 import { Capacitor } from '@capacitor/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +15,8 @@ export class LoginPageComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ){}
 
   onLogin(): void {
@@ -22,6 +24,7 @@ export class LoginPageComponent {
     this.authService.login('fernando@gmail.com','123456')
       .subscribe( user => {
         this.checkPermissions()
+        this.presentToast();
         this.router.navigate(['/']);
 
       });
@@ -52,5 +55,16 @@ export class LoginPageComponent {
       this.checkLocation()
     }
    
+  }
+
+  //4. Present Ionic Toast 
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Bienvenido!',
+      duration: 1500,
+      position: 'bottom',
+    });
+
+    await toast.present();
   }
 }
