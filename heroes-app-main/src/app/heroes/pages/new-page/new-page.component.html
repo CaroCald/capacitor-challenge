@@ -12,7 +12,7 @@
     <mat-card>
       <mat-card-content>
 
-        <form class="grid" [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+        <form class="grid" [formGroup]="heroForm">
 
           <mat-form-field class="col-12 sm:col-6">
             <mat-label>Super héroe</mat-label>
@@ -79,8 +79,9 @@
 
           <button  class="col-12"
           *ngIf="isMobile"
-          (click)="uploadImage()"
+          (click)="validateUploadImage()"
           mat-flat-button
+          formControlName="upload_img"
           color="primary">
           Subir imagen
         </button>
@@ -113,16 +114,16 @@
 
   <div class="col-12 sm:col-6">
 
-    <mat-card *ngIf="currentHero.upload_img; else uploadImageShow">
+    <mat-card *ngIf="!currentHero.upload_img; else uploadImageShow">
       <img [src]="currentHero | heroImage" alt="imagen del héroe" mat-card-image>
     </mat-card>
 
     <ng-template #uploadImageShow>
-      <mat-card *ngIf="currentHero.upload_img">
-        <img [src]="currentHero.upload_img" alt="imagen del héroe" mat-card-image>
-      </mat-card>
+      
     </ng-template>
-
+    <mat-card *ngIf="currentHero.upload_img">
+      <img [src]="currentHero.upload_img" alt="imagen del héroe" mat-card-image>
+    </mat-card>
     
   </div>
 </div>

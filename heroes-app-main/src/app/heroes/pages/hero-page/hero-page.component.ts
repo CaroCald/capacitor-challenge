@@ -51,7 +51,6 @@ export class HeroPageComponent implements OnInit {
     await Share.share({
       title: 'Informacion',
       text: `Informacion del heroe: primerea aparicion: ${this.hero?.first_appearance}, nombre: ${this.hero?.superhero}`,
-    
     });
   }
 
