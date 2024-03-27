@@ -17,7 +17,7 @@ Android. Algunos ejemplos de uso pueden ser:
  1. Añadido Toast, valida en que plataforma se encuentra y muestra un snackbar en la web y un toast en mobile android en 'NewPageComponent'
  2. Añadido paquete de geolocalizacion en 'LoginPageComponent', valida permisos, e imprime en consola las coordendas
  3. Añadido paquete Share para compartir informacion del Heroes en 'HeroPageComponent'
- 4. Añadido paquete de camara para cargar una foto del heroe desde la galeria en 'NewPageComponent', simplemente es visual no actualiza el api ya que no habia un servicio para ello
+ 4. Añadido paquete de camara para cargar una foto del heroe desde la galeria desde androird en 'NewPageComponent', simplemente es visual no actualiza el api ya que no habia un servicio para ello
 
 # Obtener los archivos para publicación de la plataforma Web
 * El compilado se encuentra en este directorio carpeta dist
