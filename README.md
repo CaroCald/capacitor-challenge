@@ -20,7 +20,7 @@ Android. Algunos ejemplos de uso pueden ser:
  4. Añadido paquete de camara para cargar una foto del heroe desde la galeria desde androird en 'NewPageComponent', simplemente es visual no actualiza el api ya que no habia un servicio para ello
 
 # Obtener los archivos para publicación de la plataforma Web
-* El compilado se encuentra en este directorio carpeta dist
+* El compilado se encuentra en este directorio carpeta web/dist
 
 # Obtener el archivo apk para la plataforma Android
 * El apk se encuentra en la carpeta apk de este directorio
